@@ -70,16 +70,23 @@ class ScreenHome extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) {
-                  return  ScreenNote(userId: userId,);
+                  return ScreenNote(
+                    userId: userId,
+                  );
                 },
               ));
             },
           ),
           body: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: BlocListener<DeleteBloc, DeleteState>(
-              listener: (context, state) {
-                if (state is DeleteNoteSuccess) {
+            child: StreamBuilder(
+              stream: FirebaseDbService().getAllTasks(userId),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data!.isEmpty) {
+                    return BlocListener<DeleteBloc, DeleteState>(
+                      listener: (context, state) {
+                          if (state is DeleteNoteSuccess) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       duration: const Duration(seconds: 2),
                       behavior: SnackBarBehavior.floating,
@@ -94,13 +101,8 @@ class ScreenHome extends StatelessWidget {
                           bottom: size.height * 0.02, left: 25, right: 25),
                       content: Text(state.errorMessage)));
                 }
-              },
-              child: StreamBuilder(
-                stream: FirebaseDbService().getAllTasks(userId),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    if (snapshot.data!.isEmpty) {
-                      return Center(
+                      },
+                      child: Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -108,48 +110,50 @@ class ScreenHome extends StatelessWidget {
                             const Text('No Tasks'),
                           ],
                         ),
-                      );
-                    }
-                    final data = snapshot.data;
-                    return ListView.separated(
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) {
-                                  return ScreenNoteEdit(
-                                    taskModel: data[index], userId: userId,
-                                  );
-                                },
-                              ));
-                            },
-                            child: TaskTileWidget(
-                              size: size,
-                              data: data!,
-                              index: index, userID: userId,
-                            ),
-                          );
-                        },
-                        separatorBuilder: (context, index) => const SizedBox(
-                              height: 10,
-                            ),
-                        itemCount: snapshot.data!.length);
-                  } else if (snapshot.connectionState ==
-                      ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (snapshot.hasError) {
-                    return const Center(
-                      child: Text('Please try lator'),
-                    );
-                  } else {
-                    return const Center(
-                      child: Text('No data'),
+                      ),
                     );
                   }
-                },
-              ),
+                  final data = snapshot.data;
+                  return ListView.separated(
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) {
+                                return ScreenNoteEdit(
+                                  taskModel: data[index],
+                                  userId: userId,
+                                );
+                              },
+                            ));
+                          },
+                          child: TaskTileWidget(
+                            size: size,
+                            data: data!,
+                            index: index,
+                            userID: userId,
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) => const SizedBox(
+                            height: 10,
+                          ),
+                      itemCount: snapshot.data!.length);
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (snapshot.hasError) {
+                  return const Center(
+                    child: Text('Please try lator'),
+                  );
+                } else {
+                  return const Center(
+                    child: Text('No data'),
+                  );
+                }
+              },
             ),
           ),
         ),
@@ -225,7 +229,8 @@ class TaskTileWidget extends StatelessWidget {
     super.key,
     required this.size,
     required this.data,
-    required this.index, required this.userID,
+    required this.index,
+    required this.userID,
   });
 
   final Size size;
@@ -306,8 +311,9 @@ class TaskTileWidget extends StatelessWidget {
                   child: IconButton(
                       padding: EdgeInsets.zero,
                       onPressed: () async {
-                        BlocProvider.of<DeleteBloc>(context)
-                            .add(DeleteNoteEvent(id: data[index].id, userID: userID));
+                        BlocProvider.of<DeleteBloc>(context).add(
+                            DeleteNoteEvent(
+                                id: data[index].id, userID: userID));
                       },
                       icon: const Icon(Icons.delete)),
                 )

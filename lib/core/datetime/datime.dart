@@ -14,9 +14,10 @@ class DataTimeFunction {
     String formattedTime = DateFormat('h:mm a').format(dateTime);
 
     // Combine the date and time
-    String formattedDateTime = '$formattedDate Due: $formattedTime';
+    String formattedDateTime = '$formattedDate   Time: $formattedTime';
 
     return formattedDateTime;
   }
 
+  int generateUniqueId() => DateTime.now().microsecondsSinceEpoch % (1 << 31);
 }

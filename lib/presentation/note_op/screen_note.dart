@@ -143,7 +143,7 @@ class _ScreenNoteState extends State<ScreenNote> {
                           deadlineKey.currentState!.selectedDate,
                           deadlineKey.currentState!.formatedTime!);
                       final task = TaskModel(
-                          id: uuid.v1(),
+                          id: DataTimeFunction().generateUniqueId().toString(),
                           title: titleController.text,
                           description: descriptionController.text,
                           estimatedTime: timeTakenController.text,
@@ -158,7 +158,7 @@ class _ScreenNoteState extends State<ScreenNote> {
                           behavior: SnackBarBehavior.floating,
                           margin: EdgeInsets.only(
                               bottom: size.height * 0.02, left: 25, right: 25),
-                          content: const Text('Please fill all values')));
+                          content: const Text('Please fill all fields')));
                     }
                   },
                   child: Container(

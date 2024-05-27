@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_manager_rv/Infrastructure/db/db_service.dart';
 import 'package:task_manager_rv/core/common/connectivity.dart';
+import 'package:task_manager_rv/core/notifications/notifications.dart';
 import 'package:task_manager_rv/domain/task_model.dart';
 
 part 'edit_event.dart';
@@ -18,10 +19,13 @@ class EditBloc extends Bloc<EditEvent, EditState> {
           await connectivityService.checkIntilialConnection();
 
       if (connectionStatus) {
-        final editStatus = await firebaseDbService.editNote(task: event.task, userid: event.userID);
+        final editStatus = await firebaseDbService.editNote(
+            task: event.task, userid: event.userID);
 
         if (editStatus.$1) {
           emit(EditNoteSuccess());
+          NotificationService().updateNotification(
+              id: event.task.id, datatime: event.task.dueDateTime);
         } else {
           emit(EditNoteFailed(
               errorMessage:

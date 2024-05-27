@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_manager_rv/Infrastructure/db/db_service.dart';
 import 'package:task_manager_rv/core/common/connectivity.dart';
+import 'package:task_manager_rv/core/notifications/notifications.dart';
 
 part 'delete_event.dart';
 part 'delete_state.dart';
@@ -17,10 +18,13 @@ class DeleteBloc extends Bloc<DeleteEvent, DeleteState> {
           await connectivityService.checkIntilialConnection();
 
       if (connectionStatus) {
-        final deleteStatus = await firebaseDbService.deleteNote(id: event.id,userid: event.userID);
+        final deleteStatus = await firebaseDbService.deleteNote(
+            id: event.id, userid: event.userID);
 
         if (deleteStatus.$1) {
           emit(DeleteNoteSuccess());
+
+          NotificationService().deleteNotification(id: event.id);
         } else {
           emit(DeleteNoteFailed(
               errorMessage:

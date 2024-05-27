@@ -73,7 +73,7 @@ class LoginPageWidget extends StatelessWidget {
           .add(LoginUsingEmail(username: email, password: password));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please all the details')),
+        const SnackBar(content: Text('Please fill all the details')),
       );
     }
   }

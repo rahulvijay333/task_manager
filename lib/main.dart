@@ -11,13 +11,15 @@ import 'package:task_manager_rv/application/notes/note_delete/delete_bloc.dart';
 import 'package:task_manager_rv/application/notes/note_edit/edit_bloc.dart';
 import 'package:task_manager_rv/application/registration/register_bloc.dart';
 import 'package:task_manager_rv/core/common/connectivity.dart';
+import 'package:task_manager_rv/core/notifications/notifications.dart';
 
 import 'package:task_manager_rv/presentation/splash/screen_splash.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: options);
-
+  NotificationService().initNotification();
+// tz.initializeTimeZones();
   runApp(MainApp());
 }
 
