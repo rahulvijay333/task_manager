@@ -31,4 +31,9 @@ Task Manager relies on the following dependencies:
 - Firestore for database storage
 - Firebase Authentication for user authentication
 
+## ScreenShots
+<img src="lib/presentation/screenshots/Login.jpg" alt="Alt text" width="300"/>
+<img src="lib/presentation/screenshots/Resgister.jpg" alt="Alt text" width="300"/>
+<img src="lib/presentation/screenshots/HomeScreen.jpg" alt="Alt text" width="300"/>
+<img src="lib/presentation/screenshots/add_task.jpg" alt="Alt text" width="300"/>
 
