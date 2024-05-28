@@ -7,13 +7,10 @@ class DataTimeFunction {
   }
 
   String getFormattedDateTime(DateTime dateTime) {
-    // Format the date
+    //------------------------------------------------------------ Format the date
     String formattedDate = DateFormat('d MMMM, yyyy').format(dateTime);
 
-    // Format the time
     String formattedTime = DateFormat('h:mm a').format(dateTime);
-
-    // Combine the date and time
     String formattedDateTime = '$formattedDate   Time: $formattedTime';
 
     return formattedDateTime;

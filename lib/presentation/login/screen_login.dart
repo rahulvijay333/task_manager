@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_manager_rv/application/login/login_bloc.dart';
+import 'package:task_manager_rv/core/constants/constants.dart';
 import 'package:task_manager_rv/presentation/home/screen_home.dart';
 import 'package:task_manager_rv/presentation/register/screen_register.dart';
 
@@ -73,7 +74,7 @@ class LoginPageWidget extends StatelessWidget {
           .add(LoginUsingEmail(username: email, password: password));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fill all the details')),
+        const SnackBar(content: Text('Please fill all the credentials')),
       );
     }
   }
@@ -135,9 +136,11 @@ class LoginPageWidget extends StatelessWidget {
                           border: Border.all(color: Colors.grey),
                           borderRadius: BorderRadius.circular(5)),
                       child: TextFormField(
+                        obscureText: true,
                         cursorColor: Colors.blue,
                         controller: _passwordController,
                         decoration: const InputDecoration(
+                          
                             border: InputBorder.none,
                             hintStyle: TextStyle(color: Colors.grey),
                             hintText: 'Enter your password'),
@@ -148,8 +151,6 @@ class LoginPageWidget extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        // FirebaseAuthService().login(
-                        //     email: 'rahul@gmail.com', password: '123456');
                         login(
                             email: _emailController.text,
                             password: _passwordController.text,
@@ -229,7 +230,7 @@ class IntroWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Center(
-          child: Container(
+          child: SizedBox(
             width: 150,
             height: 150,
             child: Image.asset('assets/login_page_logo.png'),
@@ -243,9 +244,7 @@ class IntroWidget extends StatelessWidget {
           'Easy manage your tasks',
           style: TextStyle(color: Colors.grey),
         ),
-        const SizedBox(
-          height: 15,
-        )
+        space15
       ],
     );
   }

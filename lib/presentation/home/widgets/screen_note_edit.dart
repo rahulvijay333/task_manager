@@ -10,7 +10,8 @@ import 'package:task_manager_rv/domain/task_model.dart';
 class ScreenNoteEdit extends StatefulWidget {
   const ScreenNoteEdit({
     super.key,
-    required this.taskModel, required this.userId,
+    required this.taskModel,
+    required this.userId,
   });
 
   final TaskModel taskModel;
@@ -149,9 +150,15 @@ class _ScreenNoteEditState extends State<ScreenNoteEdit> {
                         estimatedTime: timeTakenController.text,
                         dueDateTime: datetime,
                         taskStatus: deadlineKeyEdit.currentState!.taskStatus);
-                    //-----------------------------save note function
+                    //-----------------------------edit note function
                     editNote(task);
-                    // addNote(task: task, context: context);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        duration: const Duration(seconds: 3),
+                        behavior: SnackBarBehavior.floating,
+                        margin: EdgeInsets.only(
+                            bottom: size.height * 0.02, left: 25, right: 25),
+                        content: const Text('Please fill all fields')));
                   }
                 },
                 child: Container(
@@ -345,9 +352,7 @@ class _DeadLineWidgetEditState extends State<DeadLineWidgetEdit> {
         const Text('Task Status'),
         ChoiceChip(
           side: BorderSide.none,
-          // selectedShadowColor: Colors.green.shade300,
           selectedColor: Colors.green,
-          // disabledColor: Colors.red,
           elevation: 10,
           backgroundColor: taskStatus ? Colors.green : Colors.red,
           showCheckmark: false,

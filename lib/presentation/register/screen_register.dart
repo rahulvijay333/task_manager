@@ -246,7 +246,7 @@ class _ScreenRegisterState extends State<ScreenRegister> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('leave registration'),
+            title: const Text('leave registration'),
             content: const Text('Are you sure ?'),
             actions: [
               TextButton(

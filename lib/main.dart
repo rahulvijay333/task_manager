@@ -19,7 +19,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: options);
   NotificationService().initNotification();
-// tz.initializeTimeZones();
+
   runApp(MainApp());
 }
 
@@ -31,29 +31,33 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider(
-        create: (context) => AuthBloc(),
-      ),
-      BlocProvider(
-        create: (context) => LoginBloc(FirebaseAuthService()),
-      ),
-      BlocProvider(
-        create: (context) => AddBloc(firebaseDbService,connectivityService),
-      ),
-      BlocProvider(
-        create: (context) => EditBloc(firebaseDbService,connectivityService),
-      ),
-      BlocProvider(
-        create: (context) => DeleteBloc(firebaseDbService,connectivityService),
-        child: Container(),
-      ),
-      BlocProvider(
-        create: (context) => RegisterBloc(FirebaseAuthService(),connectivityService),
-      )
-    ], child: const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      
-      home: Screensplash()));
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => AuthBloc(),
+          ),
+          BlocProvider(
+            create: (context) => LoginBloc(FirebaseAuthService()),
+          ),
+          BlocProvider(
+            create: (context) =>
+                AddBloc(firebaseDbService, connectivityService),
+          ),
+          BlocProvider(
+            create: (context) =>
+                EditBloc(firebaseDbService, connectivityService),
+          ),
+          BlocProvider(
+            create: (context) =>
+                DeleteBloc(firebaseDbService, connectivityService),
+            child: Container(),
+          ),
+          BlocProvider(
+            create: (context) =>
+                RegisterBloc(FirebaseAuthService(), connectivityService),
+          )
+        ],
+        child: const MaterialApp(
+            debugShowCheckedModeBanner: false, home: Screensplash()));
   }
 }

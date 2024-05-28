@@ -2,7 +2,7 @@
 
 ## Overview
 
-Task Manager is a Flutter application designed to help users manage their tasks efficiently. It utilizes Flutter for the front-end development, Bloc for state management, and Firestore for the backend database. The app allows users to perform CRUD (Create, Read, Update, Delete) operations on tasks, ensuring a seamless task management experience.
+Task Manager is a Flutter application designed to help users manage their tasks efficiently. It utilizes Flutter for the front-end development, Bloc for state management and Firestore for the backend database. The app allows users to perform CRUD (Create, Read, Update, Delete) operations on tasks, ensuring a seamless task management experience.
 
 ## Features
 
@@ -12,15 +12,17 @@ Task Manager is a Flutter application designed to help users manage their tasks 
 
 - **Intuitive Interface**: The app features a user-friendly interface, making it easy for users to navigate and manage their tasks efficiently.
 
+- **Notification Feature**: The app includes a notification feature to remind users 10 minutes before the task deadline. This feature is implemented using Flutter Local Notification.
+
 ## Getting Started
 
 To get started with Task Manager, follow these steps:
 
 1. **Clone the repository** to your local machine.
 2. Ensure you have **Flutter and Dart** installed on your development environment.
-3. **Set up Firebase** for your project and configure the necessary authentication and Firestore database.
-4. **Update the Firebase configuration** in the app (usually located in `lib/main.dart`) with your Firebase project credentials.
-5. Run the app on your preferred **emulator or physical device** using `flutter run`.
+3. Set up Firebase for your project and configure the necessary authentication and Firestore database.
+4. Update the Firebase configuration in the app (usually located in `lib/main.dart`) with your Firebase project credentials.
+5. Run the app on your preferred emulator or physical device using `flutter run`.
 
 ## Dependencies
 
@@ -30,6 +32,8 @@ Task Manager relies on the following dependencies:
 - Bloc for state management
 - Firestore for database storage
 - Firebase Authentication for user authentication
+- Flutter Local Notifications for task deadline reminders
+
 
 ## ScreenShots
 <img src="lib/presentation/screenshots/Login.jpg" alt="Alt text" width="300"/>

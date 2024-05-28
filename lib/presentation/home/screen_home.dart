@@ -42,6 +42,8 @@ class ScreenHome extends StatelessWidget {
           return leaveApp ?? false;
         },
         child: Scaffold(
+          
+         
           appBar: AppBar(
             title: const Text(
               'Task Manager',
@@ -86,21 +88,25 @@ class ScreenHome extends StatelessWidget {
                   if (snapshot.data!.isEmpty) {
                     return BlocListener<DeleteBloc, DeleteState>(
                       listener: (context, state) {
-                          if (state is DeleteNoteSuccess) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      duration: const Duration(seconds: 2),
-                      behavior: SnackBarBehavior.floating,
-                      margin: EdgeInsets.only(
-                          bottom: size.height * 0.01, left: 25, right: 25),
-                      content: const Text('note deleted')));
-                } else if (state is DeleteNoteFailed) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      duration: const Duration(seconds: 3),
-                      behavior: SnackBarBehavior.floating,
-                      margin: EdgeInsets.only(
-                          bottom: size.height * 0.02, left: 25, right: 25),
-                      content: Text(state.errorMessage)));
-                }
+                        if (state is DeleteNoteSuccess) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              duration: const Duration(seconds: 2),
+                              behavior: SnackBarBehavior.floating,
+                              margin: EdgeInsets.only(
+                                  bottom: size.height * 0.01,
+                                  left: 25,
+                                  right: 25),
+                              content: const Text('note deleted')));
+                        } else if (state is DeleteNoteFailed) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              duration: const Duration(seconds: 3),
+                              behavior: SnackBarBehavior.floating,
+                              margin: EdgeInsets.only(
+                                  bottom: size.height * 0.02,
+                                  left: 25,
+                                  right: 25),
+                              content: Text(state.errorMessage)));
+                        }
                       },
                       child: Center(
                         child: Column(
@@ -142,7 +148,10 @@ class ScreenHome extends StatelessWidget {
                 } else if (snapshot.connectionState ==
                     ConnectionState.waiting) {
                   return const Center(
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(
+                      color: Colors.blue,
+                      strokeWidth: 2,
+                    ),
                   );
                 } else if (snapshot.hasError) {
                   return const Center(

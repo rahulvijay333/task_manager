@@ -15,7 +15,7 @@ class NotificationService {
   }
 
   NotificationService._internal();
-
+//-----------------------------------------------------intilialize notifications
   Future<void> initNotification() async {
     notificationsPlugin
         .resolvePlatformSpecificImplementation<
@@ -80,7 +80,7 @@ class NotificationService {
       String? payLoad,
       required DateTime scheduledNotificationDateTime}) async {
     DateTime notificationTime =
-        scheduledNotificationDateTime.subtract(const Duration(minutes: 5));
+        scheduledNotificationDateTime.subtract(const Duration(minutes: 10));
 
     return notificationsPlugin
         .zonedSchedule(
